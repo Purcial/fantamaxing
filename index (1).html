@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#06070A" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-title" content="FANTAMAXING" />
+<title>FANTAMAXING</title>
+<style>
+html, body { margin:0; padding:0; background:#06070A; min-height:100%; }
+body { min-height: 100dvh; }
+</style>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+#fx-root, #fx-root * { box-sizing: border-box; }
+#fx-root {
+  --bg: #06070A;
+  --bg-1: #0C0E13;
+  --bg-2: #13161C;
+  --bg-3: #1A1E26;
+  --line: #21262F;
+  --line-2: #2C323C;
+  --ice: #4FD1FF;
+  --ice-dim: #1E4A57;
+  --volt: #7C8CFF;
+  --volt-dim: #2A2D5C;
+  --frost: #F3F6F9;
+  --grey: #8B93A1;
+  --grey-dim: #565D68;
+  --ok: #35D68F;
+  --bad: #FF5C6C;
+  --gold: #FFC24B;
+  --silver: #C9D3DC;
+  --bronze: #D98A55;
+  --f-disp: 'Chakra Petch', sans-serif;
+  --f-body: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--frost);
+  font-family: var(--f-body);
+  border-radius: 0;
+  min-height: 100dvh;
+  position: relative;
+}
+#fx-root::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 900px 500px at 15% -10%, rgba(79,209,255,0.10), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 110% 10%, rgba(124,140,255,0.08), transparent 60%);
+  pointer-events: none;
+}
+.fx-wrap { position: relative; padding: 28px 24px 32px; padding-top: max(28px, env(safe-area-inset-top)); padding-bottom: max(32px, env(safe-area-inset-bottom)); max-width: 640px; margin: 0 auto; }
+.fx-h1 { font-family: var(--f-disp); font-weight: 700; letter-spacing: 0.02em; font-size: 26px; margin: 0; color: var(--frost); }
+.fx-h1 span { color: var(--ice); }
+.fx-sub { color: var(--grey); font-size: 13px; margin: 4px 0 0; }
+.fx-eyebrow { font-family: var(--f-disp); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ice); margin: 0 0 6px; }
+.fx-card { background: var(--bg-1); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+.fx-card + .fx-card { margin-top: 14px; }
+.fx-btn { font-family: var(--f-body); font-weight: 600; font-size: 14px; border-radius: 10px; padding: 11px 18px; cursor: pointer; border: 1px solid var(--line-2); background: var(--bg-2); color: var(--frost); transition: all .15s ease; width: 100%; }
+.fx-btn:hover { border-color: var(--ice); background: var(--bg-3); }
+.fx-btn:active { transform: scale(0.98); }
+.fx-btn-primary { background: linear-gradient(180deg, var(--ice), #2FB8E0); color: #04222B; border: none; }
+.fx-btn-primary:hover { filter: brightness(1.08); border: none; }
+.fx-btn-ghost { background: transparent; border: 1px solid var(--line); color: var(--grey); }
+.fx-btn-ghost:hover { color: var(--frost); border-color: var(--line-2); background: transparent; }
+.fx-btn-sm { width: auto; padding: 7px 12px; font-size: 12.5px; }
+.fx-row { display: flex; gap: 10px; }
+.fx-col { flex: 1; min-width: 0; }
+.fx-label { display: block; font-size: 12px; color: var(--grey); margin: 0 0 6px; font-weight: 500; }
+.fx-input, .fx-select, .fx-textarea { width: 100%; background: var(--bg-2); border: 1px solid var(--line-2); color: var(--frost); border-radius: 9px; padding: 10px 12px; font-size: 14px; font-family: var(--f-body); outline: none; }
+.fx-input:focus, .fx-select:focus, .fx-textarea:focus { border-color: var(--ice); box-shadow: 0 0 0 3px rgba(79,209,255,0.12); }
+.fx-input::placeholder, .fx-textarea::placeholder { color: var(--grey-dim); }
+.fx-field { margin-bottom: 14px; }
+.fx-err { color: var(--bad); font-size: 12.5px; margin-top: 6px; }
+.fx-pin-dots { display: flex; gap: 10px; justify-content: center; margin: 4px 0 2px; }
+.fx-pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--line-2); background: transparent; }
+.fx-pin-dot.filled { background: var(--ice); border-color: var(--ice); }
+.fx-icon { display: inline-block; vertical-align: -3px; }
+.fx-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+.fx-userchip { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--grey); background: var(--bg-1); border: 1px solid var(--line); padding: 6px 10px 6px 6px; border-radius: 999px; }
+.fx-avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--volt-dim); color: var(--volt); display: flex; align-items: center; justify-content: center; font-family: var(--f-disp); font-size: 11px; font-weight: 700; }
+.fx-session-band { background: linear-gradient(135deg, var(--bg-2), var(--bg-1)); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.fx-session-name { font-family: var(--f-disp); font-weight: 700; font-size: 16px; }
+.fx-session-days { text-align: right; }
+.fx-session-days b { font-family: var(--f-disp); font-size: 22px; color: var(--ice); display: block; line-height: 1; }
+.fx-session-days small { color: var(--grey); font-size: 11px; }
+.fx-lb-row { display: flex; align-items: center; gap: 12px; padding: 12px 10px; border-radius: 10px; cursor: pointer; border: 1px solid transparent; }
+.fx-lb-row:hover { background: var(--bg-2); border-color: var(--line); }
+.fx-lb-row.me { background: rgba(79,209,255,0.06); border-color: var(--ice-dim); }
+.fx-rank { font-family: var(--f-disp); font-weight: 700; font-size: 15px; width: 26px; text-align: center; color: var(--grey); }
+.fx-rank.r1 { color: var(--gold); } .fx-rank.r2 { color: var(--silver); } .fx-rank.r3 { color: var(--bronze); }
+.fx-ring-wrap { position: relative; width: 44px; height: 44px; flex-shrink: 0; }
+.fx-ring-wrap svg { transform: rotate(-90deg); }
+.fx-ring-bg { fill: none; stroke: var(--line-2); stroke-width: 4; }
+.fx-ring-fg { fill: none; stroke: var(--ice); stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset .4s ease; }
+.fx-lb-name { font-weight: 600; font-size: 14.5px; }
+.fx-lb-meta { font-size: 11.5px; color: var(--grey); margin-top: 1px; display: flex; align-items: center; gap: 4px; }
+.fx-lb-pts { font-family: var(--f-disp); font-weight: 700; font-size: 17px; color: var(--frost); text-align: right; }
+.fx-lb-pts small { display: block; font-family: var(--f-body); font-weight: 500; font-size: 10.5px; color: var(--grey-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+.fx-obj-item { display: flex; align-items: center; gap: 12px; padding: 12px 4px; border-bottom: 1px solid var(--line); }
+.fx-obj-item:last-child { border-bottom: none; }
+.fx-obj-name { font-weight: 600; font-size: 14.5px; }
+.fx-obj-target { font-size: 11.5px; color: var(--grey); margin-top: 2px; }
+.fx-week-dots { display: flex; gap: 4px; margin-top: 6px; }
+.fx-wd { width: 16px; height: 16px; border-radius: 4px; background: var(--bg-3); border: 1px solid var(--line-2); }
+.fx-wd.done { background: var(--ice); border-color: var(--ice); }
+.fx-wd.today { box-shadow: 0 0 0 2px rgba(79,209,255,0.35); }
+.fx-check-btn { width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid var(--line-2); background: var(--bg-2); color: var(--grey); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .15s ease; }
+.fx-check-btn:hover { border-color: var(--ice); color: var(--ice); }
+.fx-check-btn.done { background: var(--ok); border-color: var(--ok); color: #04261a; }
+.fx-empty { text-align: center; padding: 30px 10px; color: var(--grey); font-size: 13.5px; }
+.fx-empty .fx-icon { color: var(--grey-dim); margin-bottom: 8px; }
+.fx-feed-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 4px; border-bottom: 1px solid var(--line); }
+.fx-feed-item:last-child { border-bottom: none; }
+.fx-feed-text { font-size: 13.5px; line-height: 1.4; }
+.fx-feed-text b { color: var(--frost); }
+.fx-feed-time { color: var(--grey-dim); font-size: 11px; margin-top: 2px; }
+.fx-feed-note { color: var(--grey); font-size: 12.5px; margin-top: 3px; font-style: italic; }
+.fx-feed-photo { width: 100%; max-width: 220px; border-radius: 8px; margin-top: 6px; display: block; border: 1px solid var(--line); }
+.fx-tabs { display: flex; gap: 6px; margin-bottom: 16px; background: var(--bg-1); border: 1px solid var(--line); border-radius: 11px; padding: 4px; }
+.fx-tab { flex: 1; text-align: center; padding: 8px 6px; border-radius: 8px; font-size: 12.5px; font-weight: 600; color: var(--grey); cursor: pointer; }
+.fx-tab.active { background: var(--bg-3); color: var(--ice); }
+.fx-modal-bg { position: fixed; inset: 0; background: rgba(3,4,6,0.72); backdrop-filter: blur(3px); display: flex; align-items: flex-end; justify-content: center; z-index: 50; }
+.fx-modal { background: var(--bg-1); border: 1px solid var(--line-2); border-top-left-radius: 20px; border-top-right-radius: 20px; padding: 22px 20px 26px; width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto; }
+.fx-modal-title { font-family: var(--f-disp); font-size: 18px; font-weight: 700; margin: 0 0 4px; }
+.fx-modal-sub { color: var(--grey); font-size: 13px; margin: 0 0 18px; }
+.fx-close-x { position: absolute; top: 18px; right: 18px; background: var(--bg-2); border: 1px solid var(--line-2); width: 30px; height: 30px; border-radius: 50%; color: var(--grey); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.fx-photo-drop { border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 16px; text-align: center; color: var(--grey); font-size: 12.5px; cursor: pointer; position: relative; }
+.fx-photo-drop:hover { border-color: var(--ice); color: var(--ice); }
+.fx-photo-preview { width: 100%; border-radius: 10px; display: block; margin-top: 10px; border: 1px solid var(--line-2); max-height: 220px; object-fit: cover; }
+.fx-back { display: inline-flex; align-items: center; gap: 5px; color: var(--grey); font-size: 13px; cursor: pointer; margin-bottom: 16px; }
+.fx-back:hover { color: var(--ice); }
+.fx-freq-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.fx-freq-opt { text-align: center; padding: 9px 0; border-radius: 8px; border: 1px solid var(--line-2); font-size: 13px; font-weight: 600; cursor: pointer; color: var(--grey); }
+.fx-freq-opt.sel { background: var(--ice-dim); border-color: var(--ice); color: var(--ice); }
+.fx-streak-badge { display: inline-flex; align-items: center; gap: 3px; background: var(--volt-dim); color: var(--volt); font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 999px; }
+.fx-toast { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); background: var(--bg-3); border: 1px solid var(--line-2); color: var(--frost); padding: 10px 18px; border-radius: 999px; font-size: 13px; font-weight: 500; z-index: 60; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+.fx-plus-fab { position: sticky; bottom: 0; }
+.fx-divider-label { font-family: var(--f-disp); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-dim); margin: 22px 0 10px; display: flex; align-items: center; gap: 10px; }
+.fx-divider-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.fx-loading { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 40px; color: var(--grey); font-size: 13px; }
+.fx-spin { width: 16px; height: 16px; border: 2px solid var(--line-2); border-top-color: var(--ice); border-radius: 50%; animation: fxspin .7s linear infinite; }
+@keyframes fxspin { to { transform: rotate(360deg); } }
+.fx-archived-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 4px; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+.fx-archived-row:last-child { border-bottom: none; }
+.fx-noteinput { margin-top: 8px; }
+@media (max-width: 420px) {
+  .fx-wrap { padding: 20px 14px 26px; }
+  .fx-h1 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div id="fx-root"></div>
+<script>
+(function(){
+  const ROOT = document.getElementById('fx-root');
+
+  function icon(name, size){
+    size = size || 18;
+    const p = {
+      lock: '<circle cx="12" cy="16" r="1"/><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
+      user: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6"/>',
+      plus: '<path d="M12 5v14M5 12h14"/>',
+      flame: '<path d="M12 2c1 4-4 5-4 9a4 4 0 0 0 8 0c0-2-1-3-1-3s2 1 2 4a6 6 0 0 1-12 0C5 7 10 6 12 2z"/>',
+      trophy: '<path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M7 5H4a3 3 0 0 0 3 5M17 5h3a3 3 0 0 1-3 5"/>',
+      target: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.5"/>',
+      calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+      camera: '<path d="M4 8h3l2-2h6l2 2h3v11H4z"/><circle cx="12" cy="13.5" r="3.2"/>',
+      check: '<path d="M4 12l5 5L20 6"/>',
+      chevronR: '<path d="M9 6l6 6-6 6"/>',
+      chevronD: '<path d="M6 9l6 6 6-6"/>',
+      x: '<path d="M6 6l12 12M18 6L6 18"/>',
+      clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
+      users: '<circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.3 2.9-5 6.5-5s6.5 1.7 6.5 5"/><circle cx="17" cy="8" r="2.6"/><path d="M15.5 20c0-2.7-.4-4-2-5"/>',
+      arrowL: '<path d="M19 12H5M11 6l-6 6 6 6"/>',
+      logout: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',
+      image: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 15l-5-5-9 9"/>',
+      archive: '<rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M10 13h4"/>',
+      spark: '<path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7z"/>',
+      sunrise: '<path d="M12 4v3M4.2 18h15.6M6.3 9.3l1.8 1.8M17.7 9.3l-1.8 1.8M3 14a9 9 0 0 1 18 0M9 18a3 3 0 0 1 6 0"/>',
+      column: '<path d="M6 21V8M18 21V8M4 21h16M4 4h16l-1.5 4h-13z M8 8v13M16 8v13"/>',
+      laurel: '<path d="M12 3v18M6 6c-2 2-2 6 0 9M18 6c2 2 2 6 0 9M6 15c-1.5 1.5-1.5 4 0 5M18 15c1.5 1.5 1.5 4 0 5"/>',
+      flameBurst: '<path d="M12 2c1 4-4 5-4 9a4 4 0 0 0 8 0c0-2-1-3-1-3s2 1 2 4a6 6 0 0 1-12 0C5 7 10 6 12 2z"/><path d="M3 6l1.5 1.5M21 6l-1.5 1.5M3 18l1.5-1.5M21 18l-1.5-1.5"/>',
+      phoenix: '<path d="M12 21c-4-1-7-4-7-8 0-2 1-3 2-3-1 2 0 4 2 4-1-3 0-6 3-8-1 3 1 5 3 5 1.5 0 2-1 2-2 2 1 3 3 3 6 0 4-3 7-8 6z"/>',
+      peakHalo: '<path d="M3 19l6-11 4 6 2-3 6 8z"/><circle cx="12" cy="4" r="1.6"/>',
+      stairs: '<path d="M4 20h4v-4h4v-4h4V8h4V4"/>',
+      boltCircle: '<circle cx="12" cy="12" r="9"/><path d="M13 7l-4 6h3l-1 4 4-6h-3z"/>',
+      infinityRays: '<path d="M8 12a2.5 2.5 0 1 0 0 0zM16 12a2.5 2.5 0 1 0 0 0z"/><path d="M9.8 10.3a3 3 0 0 1 4.4 0M9.8 13.7a3 3 0 0 0 4.4 0"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>',
+      eyeTarget: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/>',
+      crownHalo: '<path d="M4 17h16l-1.5-7-3.5 3-3-6-3 6-3.5-3z"/><circle cx="12" cy="4" r="1.4"/>',
+      obelisk: '<path d="M10 21V8l2-4 2 4v13z"/><path d="M4 21h16M2 5l2 1M22 5l-2 1M12 2v2"/>',
+      haloFull: '<circle cx="12" cy="12" r="5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M19.1 4.9l-1.5 1.5M6.4 17.6l-1.5 1.5"/>'
+    };
+    return '<svg class="fx-icon" width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+(p[name]||'')+'</svg>';
+  }
+
+  function h(str){ return String(str==null?'':str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function hashPin(pin){ let hv=5381; const s='fmx_'+pin; for(let i=0;i<s.length;i++){ hv=((hv<<5)+hv)+s.charCodeAt(i); hv=hv|0; } return String(hv); }
+  function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,8); }
+  function toISO(d){ const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),dd=String(d.getDate()).padStart(2,'0'); return y+'-'+m+'-'+dd; }
+  function parseISO(s){ const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); }
+  function todayISO(){ return toISO(new Date()); }
+  function startOfWeek(d){ const dt=new Date(d); const day=dt.getDay(); const diff=(day===0?-6:1-day); dt.setDate(dt.getDate()+diff); dt.setHours(0,0,0,0); return dt; }
+  function addDays(d,n){ const dt=new Date(d); dt.setDate(dt.getDate()+n); return dt; }
+  function fmtShort(d){ return d.toLocaleDateString('it-IT',{day:'2-digit',month:'short'}); }
+  function fmtDate(iso){ return parseISO(iso).toLocaleDateString('it-IT',{day:'2-digit',month:'short',year:'numeric'}); }
+  function daysDiff(a,b){ return Math.round((b-a)/86400000); }
+  function initials(name){ return (name||'?').trim().slice(0,2).toUpperCase(); }
+  function clamp(n,a,b){ return Math.max(a,Math.min(b,n)); }
+  const WEEKDAY_LABELS = ['L','M','M','G','V','S','D'];
+
+  const S = {
+    view: 'loading',
+    user: null,
+    sessions: [],
+    activeSession: null,
+    roster: [],
+    objByUser: {},
+    checkByUser: {},
+    err: null,
+    modal: null,
+    toast: null,
+    busy: false,
+    detailUser: null,
+    tab: 'live',
+  };
+
+  const FIREBASE_URL = 'https://fantamaxing-default-rtdb.europe-west1.firebasedatabase.app';
+
+  async function sget(key){
+    try{
+      const res = await fetch(FIREBASE_URL + '/fmx_data/' + encodeURIComponent(key) + '.json');
+      if(!res.ok) return null;
+      const data = await res.json();
+      return data == null ? null : data;
+    } catch(e){ return null; }
+  }
+  async function sset(key, val){
+    try{
+      const res = await fetch(FIREBASE_URL + '/fmx_data/' + encodeURIComponent(key) + '.json', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(val)
+      });
+      return res.ok;
+    } catch(e){ return false; }
+  }
+
+  function showToast(msg){
+    S.toast = msg; render();
+    setTimeout(()=>{ S.toast=null; render(); }, 2200);
+  }
+
+  async function loadCore(){
+    const [sessions, users] = await Promise.all([sget('sessions'), sget('users')]);
+    S.sessions = sessions || [];
+    const now = todayISO();
+    S.activeSession = S.sessions.find(s => s.status==='active' && s.endDate>=now) || null;
+    if(S.activeSession){
+      await loadSessionData(S.activeSession.id);
+    }
+  }
+
+  async function loadSessionData(sessionId){
+    const roster = (await sget('roster:'+sessionId)) || [];
+    S.roster = roster;
+    const objByUser = {}, checkByUser = {};
+    await Promise.all(roster.map(async nick => {
+      const [objs, checks] = await Promise.all([
+        sget('objectives:'+sessionId+':'+nick),
+        sget('checkins:'+sessionId+':'+nick)
+      ]);
+      objByUser[nick] = objs || [];
+      checkByUser[nick] = checks || [];
+    }));
+    S.objByUser = objByUser;
+    S.checkByUser = checkByUser;
+  }
+
+  // ---------- scoring ----------
+  function weekList(session, uptoDate){
+    const start = startOfWeek(parseISO(session.startDate));
+    const end = uptoDate ? startOfWeek(uptoDate) : startOfWeek(parseISO(session.endDate));
+    const weeks = [];
+    let cur = new Date(start);
+    while(cur <= end){
+      weeks.push({ start: new Date(cur), end: addDays(cur,6) });
+      cur = addDays(cur,7);
+    }
+    return weeks;
+  }
+
+  function objWeekStat(checks, objId, week){
+    const wStartISO = toISO(week.start), wEndISO = toISO(week.end);
+    const count = checks.filter(c => c.objectiveId===objId && c.date>=wStartISO && c.date<=wEndISO).length;
+    return count;
+  }
+
+  function computeObjLive(nick, obj){
+    const checks = S.checkByUser[nick] || [];
+    const session = S.activeSession;
+    const today = new Date();
+    const weeks = weekList(session, today);
+    if(weeks.length===0) return { percent:0, points:0, streak:0, bonus:0, total:0, doneThisWeek:0, weekDates:[] };
+    const curWeek = weeks[weeks.length-1];
+    const doneCount = objWeekStat(checks, obj.id, curWeek);
+    const percent = clamp(Math.round(doneCount/obj.targetPerWeek*100),0,100);
+    const points = percent*10;
+    let streak = 0;
+    for(let i=weeks.length-1;i>=0;i--){
+      const c = objWeekStat(checks, obj.id, weeks[i]);
+      const pct = Math.round(c/obj.targetPerWeek*100);
+      if(pct>=100) streak++; else break;
+    }
+    const bonus = Math.min(100, streak*20);
+    const reps = [];
+    for(let i=0;i<obj.targetPerWeek;i++){
+      reps.push({ filled: i<doneCount, next: i===doneCount });
+    }
+    return { percent, points, streak, bonus, total: points+bonus, doneThisWeek: doneCount, reps };
+  }
+
+  function computeUserLive(nick){
+    const objs = S.objByUser[nick] || [];
+    if(objs.length===0) return { score:0, objs:[] };
+    const details = objs.map(o => ({ obj:o, stat: computeObjLive(nick,o) }));
+    const score = Math.round(details.reduce((a,d)=>a+d.stat.total,0)/details.length);
+    return { score, objs: details };
+  }
+
+  function computeUserFinal(nick){
+    const objs = S.objByUser[nick] || [];
+    const checks = S.checkByUser[nick] || [];
+    const session = S.activeSession;
+    if(objs.length===0) return 0;
+    const weeks = weekList(session, new Date());
+    const perObj = objs.map(o => {
+      if(weeks.length===0) return 0;
+      const pcts = weeks.map(w => Math.min(100, Math.round(objWeekStat(checks,o.id,w)/o.targetPerWeek*100)));
+      return pcts.reduce((a,b)=>a+b,0)/pcts.length;
+    });
+    const avgPct = perObj.reduce((a,b)=>a+b,0)/perObj.length;
+    return Math.round(avgPct*10);
+  }
+
+  function leaderboardData(){
+    return S.roster.map(nick => {
+      const live = computeUserLive(nick);
+      return { nick, score: live.score, objCount: (S.objByUser[nick]||[]).length, maxStreak: Math.max(0,...live.objs.map(d=>d.stat.streak)) };
+    }).sort((a,b)=>b.score-a.score);
+  }
+
+  function todaysFeed(){
+    const items = [];
+    S.roster.forEach(nick => {
+      const objs = S.objByUser[nick]||[];
+      const checks = S.checkByUser[nick]||[];
+      checks.filter(c=>c.date===todayISO()).forEach(c => {
+        const obj = objs.find(o=>o.id===c.objectiveId);
+        items.push({ nick, objName: obj?obj.name:'obiettivo', note: c.note, photo: c.photo, ts: c.createdAt });
+      });
+    });
+    return items.sort((a,b)=>b.ts-a.ts);
+  }
+
+  // ---------- achievements ----------
+  const ACHIEVEMENTS = [
+    { id:'dayOneChad', name:'Day 1 Chad', icon:'sunrise', rare:false, desc:'Fai il tuo primissimo check-in.' },
+    { id:'founderArc', name:'Founder Arc', icon:'column', rare:false, desc:'Crei la tua prima sessione.' },
+    { id:'certifiedWeeklyW', name:'Certified Weekly W', icon:'laurel', rare:false, desc:'100% su tutti i tuoi obiettivi in una settimana.' },
+    { id:'sigmaStreak', name:'Sigma Streak', icon:'flame', rare:false, desc:'3 settimane di fila al 100% su un obiettivo.' },
+    { id:'gigachadStreak', name:'Gigachad Streak', icon:'flameBurst', rare:true, desc:'6 settimane di fila al 100% su un obiettivo.' },
+    { id:'comebackArc', name:'Comeback Arc', icon:'phoenix', rare:false, desc:'Torni al 100% subito dopo aver rotto uno streak.' },
+    { id:'eliteMaxxer', name:'Elite Maxxer', icon:'peakHalo', rare:false, desc:'Chiudi una sessione con media \u2265 90%.' },
+    { id:'multiMaxxing', name:'Multi-Maxxing', icon:'stairs', rare:false, desc:'4+ obiettivi gestiti con media \u2265 70%.' },
+    { id:'alphaFirstMover', name:'Alpha First Mover', icon:'boltCircle', rare:false, desc:'Primo del gruppo a fare check-in, 5 volte.' },
+    { id:'noDaysOffArc', name:'No Days Off Arc', icon:'infinityRays', rare:false, desc:'Check-in per 14 giorni di fila.' },
+    { id:'oneTrickChad', name:'One Trick Chad', icon:'eyeTarget', rare:false, desc:'Un obiettivo al 100% per l\u2019intera sessione.' },
+    { id:'topG', name:'Top G', icon:'crownHalo', rare:true, desc:'Primo in classifica per 2 settimane di fila.' },
+    { id:'finalBoss', name:'Final Boss', icon:'obelisk', rare:true, desc:'Vinci il torneo (primo alla fine della sessione).' },
+    { id:'fullyAscended', name:'Fully Ascended', icon:'haloFull', rare:true, desc:'Tutti gli obiettivi al 100% ogni settimana, sessione intera.' },
+  ];
+
+  async function ensureAchievementCache(){
+    if(S.achCache) return;
+    S.achCache = {};
+    for(const s of S.sessions){
+      if(S.activeSession && s.id===S.activeSession.id){
+        S.achCache[s.id] = { session:s, roster:S.roster, objByUser:S.objByUser, checkByUser:S.checkByUser };
+        continue;
+      }
+      const roster = (await sget('roster:'+s.id)) || [];
+      const objByUser = {}, checkByUser = {};
+      await Promise.all(roster.map(async nick => {
+        const [objs, checks] = await Promise.all([sget('objectives:'+s.id+':'+nick), sget('checkins:'+s.id+':'+nick)]);
+        objByUser[nick] = objs || []; checkByUser[nick] = checks || [];
+      }));
+      S.achCache[s.id] = { session:s, roster, objByUser, checkByUser };
+    }
+  }
+
+  function sessionWeeks(session){
+    const uptoDate = session.status==='ended' ? parseISO(session.endDate) : new Date();
+    return weekList(session, uptoDate);
+  }
+
+  function computeAchievements(nick){
+    const unlocked = {};
+    const cache = S.achCache || {};
+    const sessions = Object.values(cache);
+    let everCheckin = false;
+    let everFounder = false;
+    let maxStreakEver = 0;
+    let comeback = false;
+    let anyWeeklyPerfect = false;
+    let anyEliteSession = false;
+    let anyMultiMaxxing = false;
+    let anyOneTrick = false;
+    let anyFullyAscended = false;
+    let finalBossWin = false;
+    let topGStreak = false;
+    let alphaFirstCount = 0;
+    const allDates = new Set();
+
+    sessions.forEach(({session, roster, objByUser, checkByUser})=>{
+      if(session.createdBy===nick) everFounder = true;
+      const myObjs = objByUser[nick]||[];
+      const myChecks = checkByUser[nick]||[];
+      if(myChecks.length>0) everCheckin = true;
+      myChecks.forEach(c=>allDates.add(c.date));
+
+      const weeks = sessionWeeks(session);
+      if(weeks.length===0 || myObjs.length===0) return;
+
+      // per-objective weekly pct + streak tracking
+      const perObjWeekPct = myObjs.map(o=>{
+        const pcts = weeks.map(w => Math.min(100, Math.round(objWeekStat(myChecks,o.id,w)/o.targetPerWeek*100)));
+        return { obj:o, pcts };
+      });
+
+      perObjWeekPct.forEach(({pcts})=>{
+        let run = 0;
+        for(let i=0;i<pcts.length;i++){
+          if(pcts[i]>=100){ run++; maxStreakEver = Math.max(maxStreakEver, run); }
+          else {
+            if(run>=1 && i+1<pcts.length && pcts[i+1]>=100) comeback = true;
+            run = 0;
+          }
+        }
+      });
+
+      // weekly all-objectives-perfect check
+      for(let wi=0; wi<weeks.length; wi++){
+        const activeObjs = perObjWeekPct.filter(({obj})=> obj.createdAt <= weeks[wi].end.getTime());
+        if(activeObjs.length>0 && activeObjs.every(({pcts})=>pcts[wi]>=100)) anyWeeklyPerfect = true;
+      }
+
+      // session-level averages (only meaningful once session ended, or so far for elite check on active)
+      const perObjAvg = perObjWeekPct.map(({pcts})=> pcts.reduce((a,b)=>a+b,0)/pcts.length);
+      const sessAvg = perObjAvg.reduce((a,b)=>a+b,0)/perObjAvg.length;
+      if(sessAvg>=90) anyEliteSession = true;
+      if(myObjs.length>=4 && sessAvg>=70) anyMultiMaxxing = true;
+
+      if(session.status==='ended'){
+        if(perObjWeekPct.some(({pcts})=>pcts.every(p=>p>=100))) anyOneTrick = true;
+        if(perObjWeekPct.every(({pcts})=>pcts.every(p=>p>=100))) anyFullyAscended = true;
+      }
+
+      // alpha first mover: count days where nick was first among roster
+      const dayFirst = {};
+      roster.forEach(u=>{
+        (checkByUser[u]||[]).forEach(c=>{
+          if(!dayFirst[c.date] || c.createdAt < dayFirst[c.date].ts) dayFirst[c.date] = { user:u, ts:c.createdAt };
+        });
+      });
+      Object.values(dayFirst).forEach(d=>{ if(d.user===nick) alphaFirstCount++; });
+
+      // weekly rank (top G) + final boss
+      const weeklyAvgByUser = weeks.map(w=>{
+        const scores = roster.map(u=>{
+          const uObjs = objByUser[u]||[]; const uChecks = checkByUser[u]||[];
+          if(uObjs.length===0) return { u, pct:-1 };
+          const pcts = uObjs.map(o=>Math.min(100, Math.round(objWeekStat(uChecks,o.id,w)/o.targetPerWeek*100)));
+          return { u, pct: pcts.reduce((a,b)=>a+b,0)/pcts.length };
+        }).sort((a,b)=>b.pct-a.pct);
+        return scores;
+      });
+      let topGRun = 0;
+      weeklyAvgByUser.forEach(scores=>{
+        if(scores.length && scores[0].u===nick && scores[0].pct>0){ topGRun++; if(topGRun>=2) topGStreak = true; }
+        else topGRun = 0;
+      });
+
+      if(session.status==='ended'){
+        const finalScores = roster.map(u=>({ u, score: computeFinalGeneric(u, session, objByUser, checkByUser) })).sort((a,b)=>b.score-a.score);
+        if(finalScores.length && finalScores[0].u===nick) finalBossWin = true;
+      }
+    });
+
+    // longest consecutive-day streak across all dates
+    const sortedDates = Array.from(allDates).sort();
+    let longestDayRun = 0, curRun = 0, prevD = null;
+    sortedDates.forEach(d=>{
+      const dt = parseISO(d);
+      if(prevD && daysDiff(prevD,dt)===1) curRun++; else curRun=1;
+      longestDayRun = Math.max(longestDayRun, curRun);
+      prevD = dt;
+    });
+
+    unlocked.dayOneChad = everCheckin;
+    unlocked.founderArc = everFounder;
+    unlocked.certifiedWeeklyW = anyWeeklyPerfect;
+    unlocked.sigmaStreak = maxStreakEver>=3;
+    unlocked.gigachadStreak = maxStreakEver>=6;
+    unlocked.comebackArc = comeback;
+    unlocked.eliteMaxxer = anyEliteSession;
+    unlocked.multiMaxxing = anyMultiMaxxing;
+    unlocked.alphaFirstMover = alphaFirstCount>=5;
+    unlocked.noDaysOffArc = longestDayRun>=14;
+    unlocked.oneTrickChad = anyOneTrick;
+    unlocked.topG = topGStreak;
+    unlocked.finalBoss = finalBossWin;
+    unlocked.fullyAscended = anyFullyAscended;
+
+    // ---- live progress (si azzera se la streak si rompe) ----
+    let liveSigmaProgress = 0, liveDayRun = 0, liveTopGRun = 0;
+    const activeEntry = S.activeSession && cache[S.activeSession.id];
+    if(activeEntry){
+      const myObjs = activeEntry.objByUser[nick]||[];
+      myObjs.forEach(o=>{ const st = computeObjLive(nick,o); liveSigmaProgress = Math.max(liveSigmaProgress, st.streak); });
+
+      if(sortedDates.length){
+        const lastDate = parseISO(sortedDates[sortedDates.length-1]);
+        const todayD = new Date(new Date().toDateString());
+        if(daysDiff(lastDate, todayD) <= 1){
+          let run = 1;
+          for(let i=sortedDates.length-2; i>=0; i--){
+            if(daysDiff(parseISO(sortedDates[i]), parseISO(sortedDates[i+1]))===1) run++; else break;
+          }
+          liveDayRun = run;
+        }
+      }
+
+      const weeks = sessionWeeks(activeEntry.session);
+      let run = 0;
+      weeks.forEach(w=>{
+        const scores = activeEntry.roster.map(u=>{
+          const uObjs = activeEntry.objByUser[u]||[]; const uChecks = activeEntry.checkByUser[u]||[];
+          if(uObjs.length===0) return { u, pct:-1 };
+          const pcts = uObjs.map(o=>Math.min(100, Math.round(objWeekStat(uChecks,o.id,w)/o.targetPerWeek*100)));
+          return { u, pct: pcts.reduce((a,b)=>a+b,0)/pcts.length };
+        }).sort((a,b)=>b.pct-a.pct);
+        if(scores.length && scores[0].u===nick && scores[0].pct>0) run++; else run = 0;
+      });
+      liveTopGRun = run;
+    }
+    const progressMap = {
+      sigmaStreak: { current: Math.min(liveSigmaProgress,3), target: 3 },
+      gigachadStreak: { current: Math.min(liveSigmaProgress,6), target: 6 },
+      noDaysOffArc: { current: Math.min(liveDayRun,14), target: 14 },
+      topG: { current: Math.min(liveTopGRun,2), target: 2 },
+      alphaFirstMover: { current: Math.min(alphaFirstCount,5), target: 5 },
+    };
+
+    return ACHIEVEMENTS.map(a => ({ ...a, unlocked: !!unlocked[a.id], progress: progressMap[a.id] || null }));
+  }
+
+  function computeFinalGeneric(nick, session, objByUser, checkByUser){
+    const objs = objByUser[nick]||[]; const checks = checkByUser[nick]||[];
+    if(objs.length===0) return 0;
+    const weeks = sessionWeeks(session);
+    if(weeks.length===0) return 0;
+    const perObj = objs.map(o=>{
+      const pcts = weeks.map(w=>Math.min(100, Math.round(objWeekStat(checks,o.id,w)/o.targetPerWeek*100)));
+      return pcts.reduce((a,b)=>a+b,0)/pcts.length;
+    });
+    return Math.round(perObj.reduce((a,b)=>a+b,0)/perObj.length*10);
+  }
+
+  // ---------- actions ----------
+  async function handleLogin(nickname, pin, skipSave){
+    nickname = nickname.trim();
+    if(!nickname || !/^\d{4}$/.test(pin)){ S.err='Inserisci un nickname e un PIN di 4 cifre.'; render(); return; }
+    S.busy = true; render();
+    const users = (await sget('users')) || {};
+    const key = nickname.toLowerCase();
+    if(users[key]){
+      if(users[key].pin !== hashPin(pin)){ S.busy=false; S.err='PIN errato per questo nickname.'; render(); return; }
+    } else {
+      users[key] = { nickname, pin: hashPin(pin), createdAt: Date.now() };
+      await sset('users', users);
+    }
+    S.user = users[key].nickname;
+    S.err = null; S.busy = false;
+    if(!skipSave){
+      try{ localStorage.setItem('fmx_session', JSON.stringify({ nickname: S.user, pin })); }catch(e){}
+    }
+    await loadCore();
+    S.view = S.activeSession ? 'dashboard' : 'noSession';
+    render();
+  }
+
+  function logout(){
+    try{ localStorage.removeItem('fmx_session'); }catch(e){}
+    S.user=null; S.view='login'; S.err=null; render();
+  }
+
+  async function handleEndSession(){
+    S.busy = true; render();
+    const sessions = (await sget('sessions')) || [];
+    const s = sessions.find(x=>x.id===S.activeSession.id);
+    if(s){ s.status = 'ended'; s.endedEarly = true; await sset('sessions', sessions); }
+    S.sessions = sessions;
+    S.activeSession = null;
+    S.roster = []; S.objByUser = {}; S.checkByUser = {};
+    S.busy = false; S.modal = null;
+    S.view = 'noSession';
+    render();
+  }
+
+  async function handleEndSession(){
+    S.busy = true; render();
+    const sessions = (await sget('sessions')) || [];
+    const s = sessions.find(x=>x.id===S.activeSession.id);
+    if(s) s.status = 'ended';
+    await sset('sessions', sessions);
+    S.sessions = sessions;
+    S.activeSession = null;
+    S.roster = []; S.objByUser = {}; S.checkByUser = {};
+    S.busy = false; S.confirmEnd = false;
+    S.view = 'noSession';
+    showToast('Sessione terminata e archiviata.');
+  }
+
+  async function handleCreateSession(name, startDate, endDate){
+    name = name.trim();
+    if(!name || !startDate || !endDate || endDate<=startDate){ S.err='Compila nome e date valide (fine dopo inizio).'; render(); return; }
+    S.busy = true; render();
+    const sessions = (await sget('sessions')) || [];
+    const s = { id: uid(), name, startDate, endDate, createdBy: S.user, status:'active', createdAt: Date.now() };
+    sessions.push(s);
+    await sset('sessions', sessions);
+    S.sessions = sessions;
+    S.activeSession = s;
+    S.roster = []; S.objByUser = {}; S.checkByUser = {};
+    S.busy = false; S.err = null;
+    S.view = 'setupObjectives';
+    render();
+  }
+
+  async function handleAddObjective(name, targetPerWeek, requirePhoto){
+    name = name.trim();
+    if(!name || !targetPerWeek){ S.err='Dai un nome e scegli la frequenza.'; render(); return; }
+    S.busy = true; render();
+    const sid = S.activeSession.id;
+    const key = 'objectives:'+sid+':'+S.user;
+    const list = (await sget(key)) || [];
+    list.push({ id: uid(), name, targetPerWeek, requirePhoto: !!requirePhoto, createdAt: Date.now() });
+    await sset(key, list);
+    S.objByUser[S.user] = list;
+    let roster = (await sget('roster:'+sid)) || [];
+    if(!roster.includes(S.user)){ roster.push(S.user); await sset('roster:'+sid, roster); }
+    S.roster = roster;
+    if(!S.checkByUser[S.user]) S.checkByUser[S.user] = (await sget('checkins:'+sid+':'+S.user)) || [];
+    S.busy = false; S.err = null;
+    render();
+  }
+
+  async function handleDeleteObjective(objId){
+    const sid = S.activeSession.id;
+    const key = 'objectives:'+sid+':'+S.user;
+    let list = S.objByUser[S.user]||[];
+    list = list.filter(o=>o.id!==objId);
+    await sset(key, list);
+    S.objByUser[S.user] = list;
+    render();
+  }
+
+  function compressImage(file){
+    return new Promise((resolve,reject)=>{
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = new Image();
+        img.onload = () => {
+          const maxW = 800;
+          const scale = Math.min(1, maxW/img.width);
+          const w = Math.round(img.width*scale), hh = Math.round(img.height*scale);
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = hh;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img,0,0,w,hh);
+          resolve(canvas.toDataURL('image/jpeg', 0.62));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function handleCheckin(objId, note, photoDataUrl){
+    S.busy = true; render();
+    const sid = S.activeSession.id;
+    const key = 'checkins:'+sid+':'+S.user;
+    let list = (await sget(key)) || [];
+    const existing = list.find(c=>c.objectiveId===objId && c.date===todayISO());
+    if(existing){
+      existing.note = note||''; if(photoDataUrl) existing.photo = photoDataUrl;
+    } else {
+      list.push({ id: uid(), objectiveId: objId, date: todayISO(), note: note||'', photo: photoDataUrl||null, createdAt: Date.now() });
+    }
+    await sset(key, list);
+    S.checkByUser[S.user] = list;
+    S.busy = false; S.modal = null;
+    showToast('Fatto registrato per oggi.');
+  }
+
+  async function handleUncheck(objId){
+    const sid = S.activeSession.id;
+    const key = 'checkins:'+sid+':'+S.user;
+    let list = S.checkByUser[S.user]||[];
+    list = list.filter(c=>!(c.objectiveId===objId && c.date===todayISO()));
+    await sset(key, list);
+    S.checkByUser[S.user] = list;
+    render();
+  }
+
+  // ---------- render ----------
+  function render(){
+    let html = '';
+    if(S.view==='loading') html = S.dbError ? viewDbError() : viewLoading();
+    else if(S.view==='login') html = viewLogin();
+    else if(S.view==='noSession') html = viewNoSession();
+    else if(S.view==='createSession') html = viewCreateSession();
+    else if(S.view==='setupObjectives') html = viewSetupObjectives();
+    else if(S.view==='dashboard') html = viewDashboard();
+    else if(S.view==='archive') html = viewArchive();
+
+    if(S.modal==='checkin') html += modalCheckin();
+    if(S.modal==='pinConfirm') html += modalPinConfirm();
+    if(S.modal==='achievementInfo') html += modalAchievementInfo();
+    if(S.toast) html += '<div class="fx-toast">'+h(S.toast)+'</div>';
+
+    ROOT.innerHTML = '<div class="fx-wrap">'+html+'</div>';
+    bind();
+  }
+
+  function viewLoading(){
+    return '<div class="fx-loading"><div class="fx-spin"></div> caricamento...</div>';
+  }
+
+  function viewDbError(){
+    return '<div style="padding:30px 10px; text-align:center;">'+
+      '<div style="color:var(--bad); margin-bottom:12px;">'+icon('x',30)+'</div>'+
+      '<p class="fx-h1" style="font-size:17px;">Connessione al database non riuscita</p>'+
+      '<p class="fx-sub" style="margin:10px 0 18px; text-align:left; background:var(--bg-1); border:1px solid var(--line); border-radius:10px; padding:12px; font-family:monospace; font-size:12px; color:var(--bad);">'+h(S.dbError)+'</p>'+
+      '<button class="fx-btn fx-btn-primary" id="fx-retry-db">Riprova</button>'+
+    '</div>';
+  }
+
+  function viewLogin(){
+    return ''+
+    '<div style="text-align:center; padding-top:22px; margin-bottom:26px;">'+
+      '<div style="display:inline-flex; align-items:center; justify-content:center; width:56px; height:56px; border-radius:16px; background:var(--bg-2); border:1px solid var(--line); color:var(--ice); margin-bottom:14px;">'+icon('spark',26)+'</div>'+
+      '<h1 class="fx-h1">FANTA<span>MAXING</span></h1>'+
+      '<p class="fx-sub">La costanza premia. Sempre.</p>'+
+    '</div>'+
+    '<div class="fx-card">'+
+      '<p class="fx-eyebrow">Accedi</p>'+
+      '<div class="fx-field"><label class="fx-label">Nickname</label><input id="fx-nick" class="fx-input" placeholder="es. maxpower" maxlength="20" /></div>'+
+      '<div class="fx-field"><label class="fx-label">PIN (4 cifre)</label><input id="fx-pin" class="fx-input" placeholder="----" maxlength="4" inputmode="numeric" /></div>'+
+      (S.err ? '<div class="fx-err">'+h(S.err)+'</div>' : '')+
+      '<button class="fx-btn fx-btn-primary" id="fx-login-btn" style="margin-top:6px;" '+(S.busy?'disabled':'')+'>'+(S.busy?'...':'Entra')+'</button>'+
+      '<p style="font-size:11.5px; color:var(--grey-dim); margin:10px 0 0; text-align:center;">Nuovo nickname? Il PIN scelto ora sar\u00e0 il tuo accesso da qui in poi.</p>'+
+    '</div>';
+  }
+
+  function viewNoSession(){
+    const ended = S.sessions.filter(s=>s.status==='active' && s.endDate<todayISO());
+    return ''+
+    topbar()+
+    '<div class="fx-card" style="text-align:center; padding:34px 20px;">'+
+      '<div style="color:var(--grey-dim); margin-bottom:10px;">'+icon('target',34)+'</div>'+
+      '<p class="fx-h1" style="font-size:18px;">Nessuna sessione attiva</p>'+
+      '<p class="fx-sub" style="margin-bottom:18px;">Crea una nuova sfida a tempo per iniziare a gareggiare con il gruppo.</p>'+
+      '<button class="fx-btn fx-btn-primary" id="fx-goto-create">'+icon('plus',16)+' Crea sessione</button>'+
+    '</div>'+
+    (S.sessions.length ? '<div style="text-align:center; margin-top:14px;"><span class="fx-back" id="fx-goto-archive">'+icon('archive',15)+' vedi archivio sessioni ('+S.sessions.length+')</span></div>' : '');
+  }
+
+  function viewCreateSession(){
+    const t = new Date(); const in4w = addDays(t,28);
+    return ''+
+    '<div class="fx-back" id="fx-back-nosession">'+icon('arrowL',15)+' indietro</div>'+
+    '<p class="fx-eyebrow">Nuova sessione</p>'+
+    '<h1 class="fx-h1" style="font-size:20px; margin-bottom:16px;">Imposta la sfida</h1>'+
+    '<div class="fx-card">'+
+      '<div class="fx-field"><label class="fx-label">Nome sessione</label><input id="fx-sname" class="fx-input" placeholder="es. Winter Arc #1" maxlength="30" /></div>'+
+      '<div class="fx-row">'+
+        '<div class="fx-col fx-field"><label class="fx-label">Inizio</label><input id="fx-sstart" type="date" class="fx-input" value="'+toISO(t)+'" /></div>'+
+        '<div class="fx-col fx-field"><label class="fx-label">Fine</label><input id="fx-send" type="date" class="fx-input" value="'+toISO(in4w)+'" /></div>'+
+      '</div>'+
+      (S.err ? '<div class="fx-err">'+h(S.err)+'</div>' : '')+
+      '<button class="fx-btn fx-btn-primary" id="fx-create-session-btn" '+(S.busy?'disabled':'')+'>'+(S.busy?'...':'Avvia sessione')+'</button>'+
+    '</div>';
+  }
+
+  function viewSetupObjectives(){
+    const mine = S.objByUser[S.user]||[];
+    return ''+
+    '<p class="fx-eyebrow">'+h(S.activeSession.name)+'</p>'+
+    '<h1 class="fx-h1" style="font-size:20px; margin-bottom:4px;">I tuoi obiettivi</h1>'+
+    '<p class="fx-sub" style="margin-bottom:16px;">Scegli cosa vuoi rispettare in questa sessione. Puoi aggiungerne pi\u00f9 di uno.</p>'+
+    (mine.length ? '<div class="fx-card">'+mine.map(o=>''+
+      '<div class="fx-obj-item">'+
+        '<div style="flex:1;"><div class="fx-obj-name">'+h(o.name)+(o.requirePhoto?' <span class="fx-streak-badge">'+icon('camera',11)+' foto richiesta</span>':'')+'</div><div class="fx-obj-target">'+o.targetPerWeek+'x a settimana</div></div>'+
+        '<span class="fx-btn-sm fx-btn fx-btn-ghost" data-del-obj="'+o.id+'" style="width:auto;">'+icon('x',14)+'</span>'+
+      '</div>').join('')+'</div>' : '')+
+    '<div class="fx-card" style="margin-top:14px;">'+
+      '<div class="fx-field"><label class="fx-label">Nome obiettivo</label><input id="fx-objname" class="fx-input" placeholder="es. Allenamento, Lettura, Skincare" maxlength="26" /></div>'+
+      '<div class="fx-field"><label class="fx-label">Quante volte a settimana</label>'+
+        '<div class="fx-freq-grid">'+[1,2,3,4,5,6,7].map(n=>'<div class="fx-freq-opt" data-freq="'+n+'">'+n+'</div>').join('')+'</div>'+
+      '</div>'+
+      '<div class="fx-field" style="display:flex; align-items:center; justify-content:space-between; gap:10px;">'+
+        '<label class="fx-label" style="margin:0;">'+icon('camera',14)+' Richiedi sempre una foto per confermare</label>'+
+        '<button type="button" id="fx-photoreq-toggle" class="fx-check-btn" data-on="0" style="width:38px; height:22px; border-radius:11px; flex-shrink:0;"><span id="fx-photoreq-dot" style="display:block; width:14px; height:14px; border-radius:50%; background:var(--grey-dim); transform:translateX(-8px); transition:transform .15s ease;"></span></button>'+
+      '</div>'+
+      (S.err ? '<div class="fx-err">'+h(S.err)+'</div>' : '')+
+      '<button class="fx-btn fx-btn-ghost" id="fx-add-obj-btn" '+(S.busy?'disabled':'')+'>'+icon('plus',15)+' Aggiungi obiettivo</button>'+
+    '</div>'+
+    (mine.length ? '<button class="fx-btn fx-btn-primary" id="fx-goto-dash" style="margin-top:16px;">Vai alla classifica '+icon('chevronR',16)+'</button>' : '');
+  }
+
+  function topbar(){
+    const achBtn = S.activeSession ? '<span id="fx-goto-achievements" style="cursor:pointer; color:'+(S.tab==='achievements'?'var(--ice)':'var(--grey)')+'; background:var(--bg-1); border:1px solid var(--line); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;">'+icon('trophy',16)+'</span>' : '';
+    return '<div class="fx-topbar">'+
+      '<h1 class="fx-h1" style="font-size:18px;">FANTA<span>MAXING</span></h1>'+
+      '<div style="display:flex; align-items:center; gap:8px;">'+
+        achBtn+
+        '<div class="fx-userchip"><div class="fx-avatar">'+h(initials(S.user))+'</div>'+h(S.user)+'<span id="fx-logout" style="cursor:pointer; color:var(--grey-dim); margin-left:2px;">'+icon('logout',14)+'</span></div>'+
+      '</div>'+
+    '</div>';
+  }
+
+  function viewDashboard(){
+    const session = S.activeSession;
+    const daysLeft = Math.max(0, daysDiff(new Date(new Date().toDateString()), parseISO(session.endDate)));
+    const lb = leaderboardData();
+    const maxScore = Math.max(1000, ...lb.map(x=>x.score));
+    const myObjs = S.objByUser[S.user]||[];
+    const feed = todaysFeed();
+
+    let body = '';
+    if(S.tab==='live'){
+      body += '<p class="fx-eyebrow">Classifica</p>'+
+      '<div class="fx-card">'+
+        (lb.length===0 ? emptyBlock('users','Ancora nessun partecipante con obiettivi.') :
+          lb.map((row,i)=>{
+            const pct = clamp(Math.round(row.score/1000*100),0,100);
+            const circ = 2*Math.PI*18;
+            const off = circ - (circ*Math.min(pct,100)/100);
+            return '<div class="fx-lb-row'+(row.nick===S.user?' me':'')+'" data-detail="'+h(row.nick)+'">'+
+              '<div class="fx-rank'+(i===0?' r1':i===1?' r2':i===2?' r3':'')+'">'+(i+1)+'</div>'+
+              '<div class="fx-ring-wrap"><svg width="44" height="44"><circle class="fx-ring-bg" cx="22" cy="22" r="18"/><circle class="fx-ring-fg" cx="22" cy="22" r="18" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'"/></svg></div>'+
+              '<div style="flex:1; min-width:0;"><div class="fx-lb-name">'+h(row.nick)+(row.nick===S.user?' <span style="color:var(--grey-dim); font-weight:400;">(tu)</span>':'')+'</div>'+
+              '<div class="fx-lb-meta">'+row.objCount+' obiettiv'+(row.objCount===1?'o':'i')+(row.maxStreak>0?' &middot; <span class="fx-streak-badge">'+icon('flame',11)+' '+row.maxStreak+'</span>':'')+'</div></div>'+
+              '<div class="fx-lb-pts">'+row.score+'<small>punti</small></div>'+
+            '</div>';
+          }).join('')
+        )+
+      '</div>'+
+      '<p class="fx-eyebrow" style="margin-top:22px;">I tuoi obiettivi oggi</p>'+
+      '<div class="fx-card">'+
+        (myObjs.length===0 ? emptyBlock('target','Non hai ancora obiettivi in questa sessione.') :
+          myObjs.map(o=>{
+            const stat = computeObjLive(S.user,o);
+            const checksToday = (S.checkByUser[S.user]||[]).some(c=>c.objectiveId===o.id && c.date===todayISO());
+            return '<div class="fx-obj-item">'+
+              '<button class="fx-check-btn'+(checksToday?' done':'')+'" data-checkin="'+o.id+'" data-uncheck="'+(checksToday?'1':'0')+'">'+icon(checksToday?'check':'plus',18)+'</button>'+
+              '<div style="flex:1; min-width:0;">'+
+                '<div class="fx-obj-name">'+h(o.name)+' '+(stat.streak>0?'<span class="fx-streak-badge">'+icon('flame',11)+' '+stat.streak+'</span>':'')+'</div>'+
+                '<div class="fx-obj-target">'+stat.doneThisWeek+'/'+o.targetPerWeek+' questa settimana &middot; '+stat.percent+'%</div>'+
+                '<div class="fx-week-dots">'+stat.reps.map(r=>'<div class="fx-wd'+(r.filled?' done':'')+(r.next?' today':'')+'"></div>').join('')+'</div>'+
+              '</div>'+
+            '</div>';
+          }).join('')
+        )+
+      '</div>'+
+      '<button class="fx-btn fx-btn-ghost" id="fx-goto-addobj" style="margin-top:12px;">'+icon('plus',15)+' Aggiungi un altro obiettivo</button>'+
+      '<p class="fx-eyebrow" style="margin-top:22px;">Oggi nel gruppo</p>'+
+      '<div class="fx-card">'+
+        (feed.length===0 ? emptyBlock('clock','Nessuno ha ancora fatto check oggi. Sii il primo.') :
+          feed.map(f=>'<div class="fx-feed-item">'+
+            '<div class="fx-avatar" style="flex-shrink:0;">'+h(initials(f.nick))+'</div>'+
+            '<div style="flex:1; min-width:0;">'+
+              '<div class="fx-feed-text"><b>'+h(f.nick)+'</b> ha completato <b>'+h(f.objName)+'</b></div>'+
+              (f.note ? '<div class="fx-feed-note">"'+h(f.note)+'"</div>' : '')+
+              (f.photo ? '<img class="fx-feed-photo" src="'+f.photo+'" />' : '')+
+              '<div class="fx-feed-time">'+new Date(f.ts).toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'})+'</div>'+
+            '</div>'+
+          '</div>').join('')
+        )+
+      '</div>';
+    } else if(S.tab==='detail' && S.detailUser){
+      const dnick = S.detailUser;
+      const dobjs = S.objByUser[dnick]||[];
+      body += '<div class="fx-back" id="fx-back-live">'+icon('arrowL',15)+' torna alla classifica</div>'+
+      '<div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;"><div class="fx-avatar" style="width:40px;height:40px;font-size:14px;">'+h(initials(dnick))+'</div><h1 class="fx-h1" style="font-size:19px;">'+h(dnick)+'</h1></div>'+
+      '<p class="fx-eyebrow">Dettaglio obiettivi</p>'+
+      '<div class="fx-card">'+
+        (dobjs.length===0 ? emptyBlock('target','Nessun obiettivo impostato.') :
+          dobjs.map(o=>{
+            const stat = computeObjLive(dnick,o);
+            return '<div class="fx-obj-item">'+
+              '<div class="fx-ring-wrap" style="width:38px;height:38px;"><svg width="38" height="38"><circle class="fx-ring-bg" cx="19" cy="19" r="15"/><circle class="fx-ring-fg" cx="19" cy="19" r="15" stroke-dasharray="'+(2*Math.PI*15)+'" stroke-dashoffset="'+(2*Math.PI*15 - (2*Math.PI*15*stat.percent/100))+'"/></svg></div>'+
+              '<div style="flex:1;"><div class="fx-obj-name">'+h(o.name)+' '+(stat.streak>0?'<span class="fx-streak-badge">'+icon('flame',11)+' '+stat.streak+'</span>':'')+'</div>'+
+              '<div class="fx-obj-target">'+stat.doneThisWeek+'/'+o.targetPerWeek+' questa settimana &middot; '+stat.percent+'%</div></div>'+
+            '</div>';
+          }).join('')
+        )+
+      '</div>'+
+      renderAchievementSection(dnick, true);
+    } else if(S.tab==='achievements'){
+      body += '<div class="fx-back" id="fx-back-live">'+icon('arrowL',15)+' torna alla classifica</div>'+
+      '<p class="fx-eyebrow">I tuoi trofei</p>'+
+      '<h1 class="fx-h1" style="font-size:20px; margin-bottom:14px;">Ascension Track</h1>'+
+      renderAchievementSection(S.user, false);
+    }
+
+    return topbar()+
+    '<div class="fx-session-band">'+
+      '<div><div class="fx-session-name">'+h(session.name)+'</div><div class="fx-sub" style="margin-top:2px;">'+fmtShort(parseISO(session.startDate))+' &rarr; '+fmtShort(parseISO(session.endDate))+'</div></div>'+
+      '<div class="fx-session-days"><b>'+daysLeft+'</b><small>giorni rimasti</small></div>'+
+    '</div>'+
+    (S.confirmEnd ?
+      '<div class="fx-card" style="margin-bottom:14px; border-color:var(--bad);">'+
+        '<p style="font-size:13px; margin:0 0 10px;">Terminare questa sessione ora? Verr\u00e0 spostata nell\u2019archivio e potrai crearne una nuova.</p>'+
+        '<div class="fx-row"><button class="fx-btn fx-btn-ghost" id="fx-cancel-end" style="width:auto; flex:1;">Annulla</button><button class="fx-btn" id="fx-confirm-end" style="width:auto; flex:1; background:var(--bad); border:none; color:#3a0a0e;" '+(S.busy?'disabled':'')+'>'+(S.busy?'...':'S\u00ec, termina')+'</button></div>'+
+      '</div>' :
+      '<div style="text-align:right; margin:-10px 0 16px;"><span class="fx-back" id="fx-ask-end" style="display:inline-flex;">'+icon('archive',13)+' termina questa sessione</span></div>'
+    )+
+    body;
+  }
+
+  function renderAchievementSection(nick, compact){
+    if(!S.achCache){
+      return '<p class="fx-eyebrow" style="margin-top:'+(compact?'18px':'0')+';">Trofei</p><div class="fx-card"><div class="fx-loading" style="padding:20px;"><div class="fx-spin"></div> calcolo trofei...</div></div>';
+    }
+    const list = computeAchievements(nick);
+    const unlockedCount = list.filter(a=>a.unlocked).length;
+    return '<p class="fx-eyebrow" style="margin-top:'+(compact?'18px':'0')+';">Trofei &middot; '+unlockedCount+'/'+list.length+'</p>'+
+    '<div class="fx-card"><div style="display:grid; grid-template-columns:repeat('+(compact?'4':'3')+', 1fr); gap:12px;">'+
+      list.map(a=>{
+        const goldStyle = a.rare && a.unlocked ? 'box-shadow:0 0 0 1px var(--gold), 0 0 16px rgba(255,194,75,0.35); border-color:var(--gold);' : '';
+        const iconColor = a.unlocked ? (a.rare?'var(--gold)':'var(--ice)') : 'var(--grey-dim)';
+        const bar = (a.progress && !a.unlocked) ? '<div style="margin-top:7px; height:4px; background:var(--bg-3); border-radius:2px; overflow:hidden;"><div style="height:100%; width:'+Math.round(a.progress.current/a.progress.target*100)+'%; background:var(--ice); border-radius:2px;"></div></div><div style="font-size:9.5px; color:var(--grey-dim); margin-top:3px;">'+a.progress.current+'/'+a.progress.target+'</div>' : '';
+        return '<div data-ach-info="'+h(a.id)+'" data-ach-nick="'+h(nick)+'" style="cursor:pointer; text-align:center; padding:10px 4px; border-radius:12px; border:1px solid '+(a.unlocked?'var(--line-2)':'var(--line)')+'; opacity:'+(a.unlocked?'1':'0.6')+'; '+goldStyle+'">'+
+          '<div style="color:'+iconColor+'; margin-bottom:6px;">'+icon(a.icon,26)+'</div>'+
+          '<div style="font-size:10.5px; font-weight:600; line-height:1.25; font-family:var(--f-disp);">'+h(a.name)+'</div>'+
+          bar+
+        '</div>';
+      }).join('')+
+    '</div></div>';
+  }
+
+  function viewArchive(){
+    const past = S.sessions.filter(s=>s.id!==(S.activeSession&&S.activeSession.id)).sort((a,b)=>b.createdAt-a.createdAt);
+    return '<div class="fx-back" id="fx-back-nosession">'+icon('arrowL',15)+' indietro</div>'+
+    '<p class="fx-eyebrow">Archivio</p><h1 class="fx-h1" style="font-size:20px; margin-bottom:16px;">Sessioni passate</h1>'+
+    '<div class="fx-card">'+
+      (past.length===0 ? emptyBlock('archive','Nessuna sessione passata.') :
+        past.map(s=>'<div class="fx-archived-row"><div>'+h(s.name)+'<div class="fx-obj-target">'+fmtDate(s.startDate)+' &rarr; '+fmtDate(s.endDate)+'</div></div>'+icon('chevronR',16)+'</div>').join('')
+      )+
+    '</div>';
+  }
+
+  function emptyBlock(ic,text){
+    return '<div class="fx-empty">'+icon(ic,26)+'<div style="margin-top:6px;">'+h(text)+'</div></div>';
+  }
+
+  function modalCheckin(){
+    const obj = S._checkinObj;
+    if(!obj) return '';
+    const req = !!obj.requirePhoto;
+    return '<div class="fx-modal-bg" id="fx-modal-bg">'+
+      '<div class="fx-modal" style="position:relative;">'+
+        '<div class="fx-close-x" id="fx-modal-close">'+icon('x',15)+'</div>'+
+        '<p class="fx-modal-title">'+h(obj.name)+'</p>'+
+        '<p class="fx-modal-sub">Segna come fatto per oggi, '+fmtShort(new Date())+(req?' &mdash; foto richiesta per confermare.':'.')+'</p>'+
+        '<div class="fx-field"><label class="fx-label">Nota (opzionale)</label><textarea id="fx-note" class="fx-textarea fx-noteinput" rows="2" placeholder="com'+"'"+'\u00e8 andata?" maxlength="140"></textarea></div>'+
+        '<div class="fx-field"><label class="fx-label">Foto'+(req?'':' (opzionale)')+'</label>'+
+          '<label class="fx-photo-drop" style="'+(req?'border-color:var(--ice); color:var(--ice);':'')+'">'+icon('camera',20)+'<div style="margin-top:6px;">'+(req?'tocca per scattare la foto':'tocca per aggiungere una foto')+'</div><input type="file" accept="image/*" capture="environment" id="fx-photo-input" style="display:none;" /></label>'+
+          '<img id="fx-photo-preview" class="fx-photo-preview" style="display:none;" />'+
+        '</div>'+
+        '<button class="fx-btn fx-btn-primary" id="fx-confirm-checkin" data-require-photo="'+(req?'1':'0')+'" '+((S.busy||req)?'disabled':'')+'>'+(S.busy?'salvo...':icon('check',15)+' '+(req?'Scatta una foto per confermare':'Conferma fatto'))+'</button>'+
+      '</div>'+
+    '</div>';
+  }
+
+  function modalPinConfirm(){ return ''; }
+
+  function modalAchievementInfo(){
+    const info = S._achInfo;
+    if(!info) return '';
+    const a = info.a;
+    const goldStyle = a.rare && a.unlocked ? 'box-shadow:0 0 0 1px var(--gold), 0 0 20px rgba(255,194,75,0.35); border-color:var(--gold);' : '';
+    const iconColor = a.unlocked ? (a.rare?'var(--gold)':'var(--ice)') : 'var(--grey-dim)';
+    const bar = a.progress ? '<div style="margin-top:14px;"><div style="height:6px; background:var(--bg-3); border-radius:3px; overflow:hidden;"><div style="height:100%; width:'+Math.round(a.progress.current/a.progress.target*100)+'%; background:'+(a.unlocked?(a.rare?'var(--gold)':'var(--ice)'):'var(--ice)')+'; border-radius:3px;"></div></div><div style="font-size:12px; color:var(--grey); margin-top:6px;">'+a.progress.current+' / '+a.progress.target+'</div></div>' : '';
+    return '<div class="fx-modal-bg" id="fx-modal-bg">'+
+      '<div class="fx-modal" style="position:relative; text-align:center;">'+
+        '<div class="fx-close-x" id="fx-modal-close">'+icon('x',15)+'</div>'+
+        '<div style="width:64px; height:64px; margin:6px auto 14px; border-radius:16px; display:flex; align-items:center; justify-content:center; background:var(--bg-2); border:1px solid '+(a.unlocked?'var(--line-2)':'var(--line)')+'; color:'+iconColor+'; '+goldStyle+'">'+icon(a.icon,32)+'</div>'+
+        '<p class="fx-modal-title" style="margin-bottom:2px;">'+h(a.name)+'</p>'+
+        '<p class="fx-sub" style="margin:0 0 4px;">'+(a.unlocked?(a.rare?'Trofeo raro sbloccato':'Sbloccato'):'Ancora da sbloccare')+'</p>'+
+        '<p class="fx-modal-sub" style="margin-top:12px;">'+h(a.desc)+'</p>'+
+        bar+
+      '</div>'+
+    '</div>';
+  }
+
+  // ---------- bind events ----------
+  function bind(){
+    const $ = sel => ROOT.querySelector(sel);
+    const on = (sel, ev, fn) => { const el=$(sel); if(el) el.addEventListener(ev, fn); };
+
+    on('#fx-retry-db','click', ()=>{ S.dbError=null; boot(); });
+    on('#fx-login-btn','click', ()=>{
+      handleLogin($('#fx-nick').value, $('#fx-pin').value);
+    });
+    const pinEl = $('#fx-pin');
+    if(pinEl) pinEl.addEventListener('keydown', e=>{ if(e.key==='Enter') handleLogin($('#fx-nick').value, $('#fx-pin').value); });
+    const nickEl = $('#fx-nick');
+    if(nickEl) nickEl.addEventListener('keydown', e=>{ if(e.key==='Enter') $('#fx-pin').focus(); });
+
+    on('#fx-logout','click', logout);
+    on('#fx-goto-create','click', ()=>{ S.view='createSession'; S.err=null; render(); });
+    on('#fx-goto-archive','click', ()=>{ S.view='archive'; render(); });
+    on('#fx-back-nosession','click', ()=>{ S.view = S.activeSession ? 'dashboard' : 'noSession'; S.err=null; render(); });
+    on('#fx-create-session-btn','click', ()=>{
+      handleCreateSession($('#fx-sname').value, $('#fx-sstart').value, $('#fx-send').value);
+    });
+
+    let selFreq = ROOT.dataset.freq ? parseInt(ROOT.dataset.freq) : null;
+    ROOT.querySelectorAll('[data-freq]').forEach(el=>{
+      el.addEventListener('click', ()=>{
+        ROOT.querySelectorAll('[data-freq]').forEach(e2=>e2.classList.remove('sel'));
+        el.classList.add('sel');
+        ROOT.dataset.freq = el.dataset.freq;
+      });
+    });
+    on('#fx-photoreq-toggle','click', ()=>{
+      const btn = $('#fx-photoreq-toggle');
+      const dot = $('#fx-photoreq-dot');
+      const on = btn.dataset.on === '1';
+      btn.dataset.on = on ? '0' : '1';
+      if(on){ btn.style.background='var(--bg-2)'; btn.style.borderColor='var(--line-2)'; dot.style.transform='translateX(-8px)'; dot.style.background='var(--grey-dim)'; }
+      else { btn.style.background='var(--ice-dim)'; btn.style.borderColor='var(--ice)'; dot.style.transform='translateX(8px)'; dot.style.background='var(--ice)'; }
+    });
+    on('#fx-add-obj-btn','click', ()=>{
+      const nameEl = $('#fx-objname');
+      const freq = ROOT.dataset.freq ? parseInt(ROOT.dataset.freq) : null;
+      const photoBtn = $('#fx-photoreq-toggle');
+      const requirePhoto = photoBtn && photoBtn.dataset.on === '1';
+      handleAddObjective(nameEl.value, freq, requirePhoto);
+    });
+    ROOT.querySelectorAll('[data-del-obj]').forEach(el=>{
+      el.addEventListener('click', ()=> handleDeleteObjective(el.dataset.delObj));
+    });
+    on('#fx-goto-dash','click', ()=>{ S.view='dashboard'; S.tab='live'; render(); });
+    on('#fx-goto-addobj','click', ()=>{ S.view='setupObjectives'; S.err=null; render(); });
+
+    ROOT.querySelectorAll('[data-detail]').forEach(el=>{
+      el.addEventListener('click', ()=>{
+        S.detailUser = el.dataset.detail; S.tab='detail'; render();
+        if(!S.achCache) ensureAchievementCache().then(render);
+      });
+    });
+    on('#fx-back-live','click', ()=>{ S.tab='live'; render(); });
+    on('#fx-goto-achievements','click', ()=>{
+      S.tab='achievements'; render();
+      if(!S.achCache) ensureAchievementCache().then(render);
+    });
+    on('#fx-ask-end','click', ()=>{ S.confirmEnd=true; render(); });
+    on('#fx-cancel-end','click', ()=>{ S.confirmEnd=false; render(); });
+    on('#fx-confirm-end','click', handleEndSession);
+
+    ROOT.querySelectorAll('[data-checkin]').forEach(el=>{
+      el.addEventListener('click', ()=>{
+        const objId = el.dataset.checkin;
+        if(el.dataset.uncheck==='1'){ handleUncheck(objId); return; }
+        const obj = (S.objByUser[S.user]||[]).find(o=>o.id===objId);
+        S._checkinObj = obj;
+        S.modal = 'checkin';
+        render();
+      });
+    });
+    on('#fx-modal-bg','click', (e)=>{ if(e.target.id==='fx-modal-bg'){ S.modal=null; render(); } });
+    on('#fx-modal-close','click', ()=>{ S.modal=null; render(); });
+    ROOT.querySelectorAll('[data-ach-info]').forEach(el=>{
+      el.addEventListener('click', ()=>{
+        const nick = el.dataset.achNick;
+        const list = computeAchievements(nick);
+        const a = list.find(x=>x.id===el.dataset.achInfo);
+        if(!a) return;
+        S._achInfo = { a };
+        S.modal = 'achievementInfo';
+        render();
+      });
+    });
+    const photoInput = $('#fx-photo-input');
+    let pendingPhoto = null;
+    if(photoInput){
+      photoInput.addEventListener('change', async ()=>{
+        const f = photoInput.files[0];
+        if(!f) return;
+        const dataUrl = await compressImage(f);
+        pendingPhoto = dataUrl;
+        const prev = $('#fx-photo-preview');
+        prev.src = dataUrl; prev.style.display = 'block';
+        const confirmBtn = $('#fx-confirm-checkin');
+        if(confirmBtn && confirmBtn.dataset.requirePhoto==='1'){
+          confirmBtn.disabled = false;
+          confirmBtn.innerHTML = icon('check',15)+' Conferma fatto';
+        }
+      });
+    }
+    on('#fx-confirm-checkin','click', ()=>{
+      const note = $('#fx-note') ? $('#fx-note').value.trim() : '';
+      const confirmBtn = $('#fx-confirm-checkin');
+      if(confirmBtn && confirmBtn.dataset.requirePhoto==='1' && !pendingPhoto) return;
+      handleCheckin(S._checkinObj.id, note, pendingPhoto);
+    });
+  }
+
+  async function testConnection(){
+    try{
+      const marker = { t: Date.now() };
+      const putRes = await fetch(FIREBASE_URL + '/fmx_data/_ping.json', {
+        method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(marker)
+      });
+      if(!putRes.ok) return 'Scrittura fallita (HTTP '+putRes.status+'). Controlla le regole del database.';
+      const getRes = await fetch(FIREBASE_URL + '/fmx_data/_ping.json');
+      if(!getRes.ok) return 'Lettura fallita (HTTP '+getRes.status+'). Controlla le regole del database.';
+      const back = await getRes.json();
+      if(!back || back.t !== marker.t) return 'Dati letti non corrispondenti: possibile problema di sincronizzazione.';
+      return null;
+    } catch(e){
+      return 'Chiamata di rete bloccata o fallita: '+ (e && e.message ? e.message : e);
+    }
+  }
+
+  async function boot(){
+    S.view = 'loading'; render();
+    const dbErr = await testConnection();
+    if(dbErr){ S.dbError = dbErr; render(); return; }
+    let saved = null;
+    try{ saved = JSON.parse(localStorage.getItem('fmx_session')||'null'); }catch(e){}
+    if(saved && saved.nickname && saved.pin){
+      await handleLogin(saved.nickname, saved.pin, true);
+      if(S.user) return;
+      S.err = null;
+      try{ localStorage.removeItem('fmx_session'); }catch(e){}
+    }
+    await loadCore();
+    S.view = S.user ? (S.activeSession ? 'dashboard' : 'noSession') : 'login';
+    render();
+  }
+  boot();
+})();
+</script>
+</body>
+</html>
